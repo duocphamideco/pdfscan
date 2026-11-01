@@ -225,7 +225,7 @@ select,input[type=text]{font:inherit;font-size:14px;height:38px;border-radius:10
         <label>Hướng trang<select id="optOrient"><option value="portrait">Dọc</option><option value="landscape">Ngang</option><option value="auto">Tự động</option></select></label>
         <label>Lề<select id="optMargin"><option value="auto">Tự canh</option><option value="0">Không lề</option><option value="5">Nhỏ 5mm</option><option value="10">Vừa 10mm</option><option value="18">Rộng 18mm</option></select></label>
         <label>Chất lượng<select id="optQ"><option value="0.6">Nhẹ</option><option value="0.82">Chuẩn</option><option value="0.93">Cao</option></select></label>
-        <label>Bộ lọc mặc định<select id="optFilter"><option value="none">Ảnh gốc</option><option value="enhance">Tăng nét</option><option value="doc">Tài liệu</option><option value="gray">Thang xám</option><option value="bw">Đen trắng</option></select></label>
+        <label>Bộ lọc mặc định<select id="optFilter"><option value="none">Ảnh gốc</option><option value="enhance">Tăng nét</option><option value="doc">Scan màu</option><option value="gray">Thang xám</option><option value="bw">Đen trắng</option></select></label>
         <label>Tên tệp<input type="text" id="optName" placeholder="Tên tệp PDF"></label>
         <label class="switch"><span>Nắn đúng tỉ lệ A4<small>Trang chụp nghiêng được kéo thẳng, vừa khít khổ giấy</small></span><input type="checkbox" id="optNorm"></label>
       </div>
@@ -258,7 +258,7 @@ select,input[type=text]{font:inherit;font-size:14px;height:38px;border-radius:10
     <div class="chips" id="chips">
       <button class="chip" data-f="none">Ảnh gốc</button>
       <button class="chip" data-f="enhance">Tăng nét</button>
-      <button class="chip" data-f="doc">Tài liệu</button>
+      <button class="chip" data-f="doc">Scan màu</button>
       <button class="chip" data-f="gray">Thang xám</button>
       <button class="chip" data-f="bw">Đen trắng</button>
     </div>
@@ -446,7 +446,32 @@ function warp(img,quad,maxSide){
 }
 
 /* ---------- Bộ lọc ---------- */
+/* Scan màu: ước lượng nền giấy (ảnh thu nhỏ + giãn sáng để xóa chữ), chia từng kênh cho nền
+   → khử bóng, cân bằng trắng, nền trắng sạch mà vẫn giữ màu mực, dấu đỏ, logo */
+function colorScan(x,w,h){
+  const sw=Math.max(8,Math.round(w/24)),sh=Math.max(8,Math.round(h/24));
+  const sc=document.createElement('canvas');sc.width=sw;sc.height=sh;const sx=sc.getContext('2d',{willReadFrequently:true});
+  sx.imageSmoothingQuality='high';sx.drawImage(x.canvas,0,0,sw,sh);
+  let bd=sx.getImageData(0,0,sw,sh);
+  for(let it=0;it<3;it++){const s=bd.data,o=new Uint8ClampedArray(s);
+    for(let yy=0;yy<sh;yy++)for(let xx=0;xx<sw;xx++){const i=(yy*sw+xx)*4;
+      for(let c=0;c<3;c++){let m=s[i+c];for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const X=clamp(xx+dx,0,sw-1),Y=clamp(yy+dy,0,sh-1);const v=s[(Y*sw+X)*4+c];if(v>m)m=v}o[i+c]=m}}
+    bd=new ImageData(o,sw,sh)}
+  sx.putImageData(bd,0,0);
+  const bc=document.createElement('canvas');bc.width=w;bc.height=h;const bx=bc.getContext('2d',{willReadFrequently:true});
+  bx.imageSmoothingQuality='high';bx.filter='blur(2px)';bx.drawImage(sc,0,0,w,h);
+  const bg=bx.getImageData(0,0,w,h).data,d=x.getImageData(0,0,w,h),a=d.data;
+  for(let i=0;i<a.length;i+=4){
+    let r=a[i]/Math.max(40,bg[i])*255,g=a[i+1]/Math.max(40,bg[i+1])*255,b=a[i+2]/Math.max(40,bg[i+2])*255;
+    const l=.299*r+.587*g+.114*b;
+    if(l>228&&Math.max(r,g,b)-Math.min(r,g,b)<28){a[i]=a[i+1]=a[i+2]=255;continue}   // nền giấy → trắng tinh
+    r=l+(r-l)*1.25;g=l+(g-l)*1.25;b=l+(b-l)*1.25;                                   // giữ & tăng nhẹ màu mực
+    const k=Math.pow(clamp(l,0,255)/255,1.35)*255/(l||1);                            // chữ đậm hơn
+    a[i]=clamp(r*k,0,255);a[i+1]=clamp(g*k,0,255);a[i+2]=clamp(b*k,0,255)}
+  x.putImageData(d,0,0);
+}
 function applyFilter(x,w,h,f){
+  if(f==='doc'){colorScan(x,w,h);return}
   const d=x.getImageData(0,0,w,h),a=d.data,n=a.length;
   if(f==='enhance'){for(let i=0;i<n;i+=4){let r=a[i],g=a[i+1],b=a[i+2];const l=.299*r+.587*g+.114*b;
       r=l+(r-l)*1.25;g=l+(g-l)*1.25;b=l+(b-l)*1.25;a[i]=(r-128)*1.18+136;a[i+1]=(g-128)*1.18+136;a[i+2]=(b-128)*1.18+136}}
@@ -461,7 +486,6 @@ function applyFilter(x,w,h,f){
       thr=Math.min(235,thr+8)}
     for(let i=0,j=0;i<n;i+=4,j++){let v=gray[j];
       if(f==='gray')v=(v-lo)*255/rng;
-      else if(f==='doc'){v=(v-lo)*255/rng;v=v>200?255:v<40?v*.6:v;v=Math.pow(clamp(v,0,255)/255,1.25)*255}
       else if(f==='bw')v=v>thr?255:0;
       a[i]=a[i+1]=a[i+2]=v}}
   x.putImageData(d,0,0);
