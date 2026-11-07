@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="vi">
-<head>
+<html lang="vi"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
 <meta name="theme-color" content="#0f1620">
-<meta name="apple-mobile-web-app-capable" content="yes">
+
 <title>Chụp Ảnh Ra PDF</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 /* Bố cục: kính ngắm tối với khung A4 + bảng "giấy" chứa trang; mobile xếp dọc, PC chia 2 cột */
@@ -172,39 +171,47 @@ select,input[type=text]{font:inherit;font-size:14px;height:38px;border-radius:10
 @keyframes sp{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
-</head>
+
+    <link rel="manifest" href="./ideco-pwa/manifest.json">
+    <link rel="icon" href="./ideco-pwa/icon-192.png" type="image/png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./ideco-pwa/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Chụp Ảnh Ra PDF">
+    <script src="./ideco-pwa/register.js" defer=""></script>
+  </head>
 <body>
 <div class="app">
   <!-- CAMERA -->
   <section class="cam">
     <div class="cam-top">
       <button class="tog" id="btnOrient" title="Hướng trang A4"><span class="pg-ico" id="orientIco"></span><span id="orientTxt">A4 Dọc</span></button>
-      <button class="tog" id="btnAuto" title="Tự chụp khi trang đứng yên"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></svg>Tự chụp</button>
+      <button class="tog" id="btnAuto" title="Tự chụp khi trang đứng yên"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2M9 2h6"></path></svg>Tự chụp</button>
       <span class="grow"></span>
-      <button class="cbtn" id="btnDetect" title="Tự nhận diện mép giấy" aria-label="Tự nhận diện mép giấy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/></svg></button>
-      <button class="cbtn" id="btnTorch" title="Đèn flash" aria-label="Đèn flash" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></button>
-      <button class="cbtn" id="btnUpload" title="Chọn ảnh có sẵn" aria-label="Chọn ảnh có sẵn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg></button>
+      <button class="cbtn" id="btnDetect" title="Tự nhận diện mép giấy" aria-label="Tự nhận diện mép giấy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"></path><path d="M7 12h10"></path></svg></button>
+      <button class="cbtn" id="btnTorch" title="Đèn flash" aria-label="Đèn flash" hidden=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 4 14h7l-1 8 9-12h-7z"></path></svg></button>
+      <button class="cbtn" id="btnUpload" title="Chọn ảnh có sẵn" aria-label="Chọn ảnh có sẵn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-5-5L5 21"></path></svg></button>
     </div>
     <div class="viewport" id="viewport">
-      <video id="video" playsinline muted autoplay></video>
+      <video id="video" playsinline="" muted="" autoplay=""></video>
       <div class="guide" id="guide"><b></b><span class="guide-lbl" id="guideLbl">A4 · 210 × 297 mm</span></div>
       <canvas id="ov"></canvas>
-      <div class="status" id="status"><i></i><span id="statusTxt">Đưa tài liệu vào khung</span><span class="bar" id="autoBar" hidden><span></span></span></div>
+      <div class="status" id="status"><i></i><span id="statusTxt">Đưa tài liệu vào khung</span><span class="bar" id="autoBar" hidden=""><span></span></span></div>
       <div class="flash" id="flash"></div>
-      <div class="hint">Phím <b>Space</b> để chụp</div>      <div class="nocam" id="nocam" hidden>
+      <div class="hint">Phím <b>Space</b> để chụp</div>      <div class="nocam" id="nocam" hidden="">
         <div class="nocam-box">
           <h2 id="nocamTitle">Đang mở camera…</h2>
           <p id="nocamMsg">Hãy cho phép trình duyệt truy cập camera khi được hỏi.</p>
           <button class="pill" id="btnRetry">Thử lại</button>
-          <button class="pill ghost" id="btnNative"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Dùng camera của máy</button>
+          <button class="pill ghost" id="btnNative"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>Dùng camera của máy</button>
         </div>
       </div>
     </div>
     <div class="cam-bar">
-      <button class="thumb-last" id="btnLast" aria-label="Xem các trang đã chụp"><img id="lastImg" alt="" hidden><span class="badge" id="badge" hidden>0</span></button>
-      <button class="shutter" id="btnShot" aria-label="Chụp ảnh" disabled><span></span></button>
+      <button class="thumb-last" id="btnLast" aria-label="Xem các trang đã chụp"><img id="lastImg" alt="" hidden=""><span class="badge" id="badge" hidden="">0</span></button>
+      <button class="shutter" id="btnShot" aria-label="Chụp ảnh" disabled=""><span></span></button>
       <div class="side-r">
-        <button class="cbtn" id="btnSwitch" title="Đổi camera" aria-label="Đổi camera"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7h-3l-2-3H9L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="m15 13-3-3-3 3M12 10v6"/></svg></button>
+        <button class="cbtn" id="btnSwitch" title="Đổi camera" aria-label="Đổi camera"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7h-3l-2-3H9L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path><path d="m15 13-3-3-3 3M12 10v6"></path></svg></button>
       </div>
     </div>
   </section>
@@ -214,8 +221,8 @@ select,input[type=text]{font:inherit;font-size:14px;height:38px;border-radius:10
     <div class="p-head">
       <h1>Các trang</h1><span class="count" id="count">0 trang</span>
       <div class="sp">
-        <button class="tbtn" id="btnClear"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg><span id="clearTxt">Xóa hết</span></button>
-        <button class="tbtn expand" id="btnExpand" aria-label="Mở rộng tùy chọn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg></button>
+        <button class="tbtn" id="btnClear"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"></path></svg><span id="clearTxt">Xóa hết</span></button>
+        <button class="tbtn expand" id="btnExpand" aria-label="Mở rộng tùy chọn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"></path></svg></button>
       </div>
     </div>
     <div class="pages" id="pages"></div>
@@ -225,14 +232,14 @@ select,input[type=text]{font:inherit;font-size:14px;height:38px;border-radius:10
         <label>Hướng trang<select id="optOrient"><option value="portrait">Dọc</option><option value="landscape">Ngang</option><option value="auto">Tự động</option></select></label>
         <label>Lề<select id="optMargin"><option value="auto">Tự canh</option><option value="0">Không lề</option><option value="5">Nhỏ 5mm</option><option value="10">Vừa 10mm</option><option value="18">Rộng 18mm</option></select></label>
         <label>Chất lượng<select id="optQ"><option value="0.6">Nhẹ</option><option value="0.82">Chuẩn</option><option value="0.93">Cao</option></select></label>
-        <label>Bộ lọc mặc định<select id="optFilter"><option value="none">Ảnh gốc</option><option value="enhance">Tăng nét</option><option value="doc">Scan màu</option><option value="gray">Thang xám</option><option value="bw">Đen trắng</option></select></label>
+        <label>Bộ lọc mặc định<select id="optFilter"><option value="none">Ảnh gốc</option><option value="enhance">Tăng nét</option><option value="doc">Tài liệu</option><option value="gray">Thang xám</option><option value="bw">Đen trắng</option></select></label>
         <label>Tên tệp<input type="text" id="optName" placeholder="Tên tệp PDF"></label>
         <label class="switch"><span>Nắn đúng tỉ lệ A4<small>Trang chụp nghiêng được kéo thẳng, vừa khít khổ giấy</small></span><input type="checkbox" id="optNorm"></label>
       </div>
       <div class="summary" id="summary">A4 dọc · tự canh lề</div>
       <div class="acts">
-        <button class="primary" id="btnPdf" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"/></svg>Tạo &amp; tải PDF</button>
-        <button class="share" id="btnShare" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>Gửi</button>
+        <button class="primary" id="btnPdf" disabled=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3"></path></svg>Tạo &amp; tải PDF</button>
+        <button class="share" id="btnShare" hidden=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"></path></svg>Gửi</button>
       </div>
       <div class="copyright">© Copyright by <b>MTriet-IDECO</b></div>
     </div>
@@ -240,25 +247,25 @@ select,input[type=text]{font:inherit;font-size:14px;height:38px;border-radius:10
 </div>
 
 <!-- Trình sửa -->
-<div class="editor" id="editor" hidden>
+<div class="editor" id="editor" hidden="">
   <div class="ed-top">
     <h3 id="edTitle">Trang 1</h3>
-    <button class="cbtn" id="edClose" aria-label="Đóng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <button class="cbtn" id="edClose" aria-label="Đóng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
   </div>
   <div class="ed-stage" id="edStage">
     <canvas id="edCanvas"></canvas>
-    <div class="cropwrap" id="cropWrap" hidden>
+    <div class="cropwrap" id="cropWrap" hidden="">
       <img id="cropImg" alt="Ảnh gốc">
-      <svg id="cropSvg"><path id="cropMask" fill="#0b1118" fill-opacity=".6" fill-rule="evenodd"/><polygon id="cropPoly" fill="none" stroke="#f2a516" stroke-width="2.5"/></svg>
+      <svg id="cropSvg"><path id="cropMask" fill="#0b1118" fill-opacity=".6" fill-rule="evenodd"></path><polygon id="cropPoly" fill="none" stroke="#f2a516" stroke-width="2.5"></polygon></svg>
       <div class="hdl" data-i="0"></div><div class="hdl" data-i="1"></div><div class="hdl" data-i="2"></div><div class="hdl" data-i="3"></div>
     </div>
-    <canvas class="loupe" id="loupe" width="240" height="240" hidden></canvas>
+    <canvas class="loupe" id="loupe" width="240" height="240" hidden=""></canvas>
   </div>
   <div class="ed-bar" id="barView">
     <div class="chips" id="chips">
       <button class="chip" data-f="none">Ảnh gốc</button>
       <button class="chip" data-f="enhance">Tăng nét</button>
-      <button class="chip" data-f="doc">Scan màu</button>
+      <button class="chip" data-f="doc">Tài liệu</button>
       <button class="chip" data-f="gray">Thang xám</button>
       <button class="chip" data-f="bw">Đen trắng</button>
     </div>
@@ -270,7 +277,7 @@ select,input[type=text]{font:inherit;font-size:14px;height:38px;border-radius:10
       <button class="pill" id="edDone">Xong</button>
     </div>
   </div>
-  <div class="ed-bar" id="barCrop" hidden>
+  <div class="ed-bar" id="barCrop" hidden="">
     <div class="crop-tip">Kéo 4 góc vàng trùng với 4 góc tờ giấy</div>
     <div class="ed-acts">
       <button class="pill ghost" id="crAuto">Tự nhận diện</button>
@@ -281,10 +288,10 @@ select,input[type=text]{font:inherit;font-size:14px;height:38px;border-radius:10
   </div>
 </div>
 
-<input type="file" id="fileNative" accept="image/*" capture="environment" hidden>
-<input type="file" id="fileUpload" accept="image/*" multiple hidden>
+<input type="file" id="fileNative" accept="image/*" capture="environment" hidden="">
+<input type="file" id="fileUpload" accept="image/*" multiple="" hidden="">
 <div class="toast" id="toast"></div>
-<div class="busy" id="busy" hidden><div><span class="spin"></span><span id="busyTxt">Đang tạo PDF…</span></div></div>
+<div class="busy" id="busy" hidden=""><div><span class="spin"></span><span id="busyTxt">Đang tạo PDF…</span></div></div>
 
 <script>
 (() => {
@@ -446,32 +453,7 @@ function warp(img,quad,maxSide){
 }
 
 /* ---------- Bộ lọc ---------- */
-/* Scan màu: ước lượng nền giấy (ảnh thu nhỏ + giãn sáng để xóa chữ), chia từng kênh cho nền
-   → khử bóng, cân bằng trắng, nền trắng sạch mà vẫn giữ màu mực, dấu đỏ, logo */
-function colorScan(x,w,h){
-  const sw=Math.max(8,Math.round(w/24)),sh=Math.max(8,Math.round(h/24));
-  const sc=document.createElement('canvas');sc.width=sw;sc.height=sh;const sx=sc.getContext('2d',{willReadFrequently:true});
-  sx.imageSmoothingQuality='high';sx.drawImage(x.canvas,0,0,sw,sh);
-  let bd=sx.getImageData(0,0,sw,sh);
-  for(let it=0;it<3;it++){const s=bd.data,o=new Uint8ClampedArray(s);
-    for(let yy=0;yy<sh;yy++)for(let xx=0;xx<sw;xx++){const i=(yy*sw+xx)*4;
-      for(let c=0;c<3;c++){let m=s[i+c];for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const X=clamp(xx+dx,0,sw-1),Y=clamp(yy+dy,0,sh-1);const v=s[(Y*sw+X)*4+c];if(v>m)m=v}o[i+c]=m}}
-    bd=new ImageData(o,sw,sh)}
-  sx.putImageData(bd,0,0);
-  const bc=document.createElement('canvas');bc.width=w;bc.height=h;const bx=bc.getContext('2d',{willReadFrequently:true});
-  bx.imageSmoothingQuality='high';bx.filter='blur(2px)';bx.drawImage(sc,0,0,w,h);
-  const bg=bx.getImageData(0,0,w,h).data,d=x.getImageData(0,0,w,h),a=d.data;
-  for(let i=0;i<a.length;i+=4){
-    let r=a[i]/Math.max(40,bg[i])*255,g=a[i+1]/Math.max(40,bg[i+1])*255,b=a[i+2]/Math.max(40,bg[i+2])*255;
-    const l=.299*r+.587*g+.114*b;
-    if(l>228&&Math.max(r,g,b)-Math.min(r,g,b)<28){a[i]=a[i+1]=a[i+2]=255;continue}   // nền giấy → trắng tinh
-    r=l+(r-l)*1.25;g=l+(g-l)*1.25;b=l+(b-l)*1.25;                                   // giữ & tăng nhẹ màu mực
-    const k=Math.pow(clamp(l,0,255)/255,1.35)*255/(l||1);                            // chữ đậm hơn
-    a[i]=clamp(r*k,0,255);a[i+1]=clamp(g*k,0,255);a[i+2]=clamp(b*k,0,255)}
-  x.putImageData(d,0,0);
-}
 function applyFilter(x,w,h,f){
-  if(f==='doc'){colorScan(x,w,h);return}
   const d=x.getImageData(0,0,w,h),a=d.data,n=a.length;
   if(f==='enhance'){for(let i=0;i<n;i+=4){let r=a[i],g=a[i+1],b=a[i+2];const l=.299*r+.587*g+.114*b;
       r=l+(r-l)*1.25;g=l+(g-l)*1.25;b=l+(b-l)*1.25;a[i]=(r-128)*1.18+136;a[i+1]=(g-128)*1.18+136;a[i+2]=(b-128)*1.18+136}}
@@ -486,6 +468,7 @@ function applyFilter(x,w,h,f){
       thr=Math.min(235,thr+8)}
     for(let i=0,j=0;i<n;i+=4,j++){let v=gray[j];
       if(f==='gray')v=(v-lo)*255/rng;
+      else if(f==='doc'){v=(v-lo)*255/rng;v=v>200?255:v<40?v*.6:v;v=Math.pow(clamp(v,0,255)/255,1.25)*255}
       else if(f==='bw')v=v>thr?255:0;
       a[i]=a[i+1]=a[i+2]=v}}
   x.putImageData(d,0,0);
@@ -761,5 +744,6 @@ syncUI();
   render();await startCam();detectTick();drawLoop()})();
 })();
 </script>
-</body>
-</html>
+
+
+</body></html>
