@@ -1,0 +1,22 @@
+IDECO SCANTOPDF - PHIÊN BẢN MOBILE FULL CAMERA V4
+Ngày cập nhật: 07/11/2026
+
+1. MOBILE: camera chiếm 100% vùng hiển thị trình duyệt/PWA, ẩn bảng danh sách và tạo PDF khi đang chụp.
+2. Khung A4 tự co giãn tối đa theo chiều cao và chiều rộng camera; giữ chức năng phát hiện bốn góc của tài liệu.
+3. Chụp ảnh -> tự chuyển ngay vào màn hình chỉnh sửa (bộ lọc, căn bốn góc, xoay, xóa).
+4. Chọn "Lưu & chụp tiếp" -> về camera, tiếp tục chụp nhiều trang.
+5. Nhấn biểu tượng các trang ở thanh chụp hoặc hình thu nhỏ ảnh trước -> vào mục Trang/PDF.
+6. Ở mục Trang/PDF: quản lý trang, xóa, sửa, mở tùy chọn và tạo tải PDF. Nhấn "Chụp tiếp" để về camera.
+7. Bổ sung nút bật/thoát chế độ toàn màn hình khi trình duyệt hỗ trợ (Android Chrome).
+8. Giữ nguyên PWA, logo, khả năng lưu trang tạm IndexedDB, xuất A4, và bố cục desktop.
+
+CÁCH CẬP NHẬT TRÊN GITHUB PAGES:
+- Giải nén ZIP và tải các tệp ở bên trong lên THƯ MỤC GỐC của repo hiện đang lưu ứng dụng.
+- Ghi đè index.html. Giữ tất cả manifest.json, sw.js, ideco-pwa.js và ảnh logo đi kèm.
+- Trên Android, mở trang trong Chrome, tải lại trang. Nếu thấy giao diện cũ, đóng mở lại PWA hoặc xóa cache website.
+- Trên iOS, mở qua Safari và thêm vào Màn hình chính để không hiện thanh URL của trình duyệt.
+
+GHI CHÚ:
+- Trình duyệt cần cấp quyền Camera và trang phải chạy bằng HTTPS (GitHub Pages đáp ứng).
+- Android Chrome cho phép dùng nút mở rộng để toàn màn hình; iOS Safari có thể không hỗ trợ Fullscreen API.
+- PDF dựa trên thư viện jsPDF từ CDN theo thiết kế gốc; cần có mạng khi chưa tải thư viện.
