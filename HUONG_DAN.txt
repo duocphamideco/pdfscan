@@ -2,9 +2,8 @@ Chụp Ảnh Ra PDF — PWA Android và iPhone
 
 1. Giải nén và tải toàn bộ file, thư mục lên cùng vị trí GitHub Pages (HTTPS).
 2. Nếu HTML có CSS, JavaScript hoặc ảnh rời, đưa lên thêm đúng cấu trúc gốc.
-3. Android: Chrome > menu ⋮ > Cài đặt ứng dụng hoặc Thêm vào màn hình chính.
-4. iPhone: Safari > Chia sẻ > Thêm vào màn hình chính > Thêm.
-5. Nếu cập nhật app, triển khai vào đúng địa chỉ cũ. Khi biểu tượng cũ còn hiện,
-   thử mở lại trang và cài lại nếu cần. Kiểm tra dữ liệu chỉ lưu trên máy trước khi gỡ.
-Mỗi app dùng thư mục hoặc repo riêng. Nội dung chính được mở trực tiếp từ index.html.
-Bộ cài hiển thị màn hình báo mất mạng. Khả năng sử dụng offline phụ thuộc app gốc.
+3. Mở trang cai-dat.html từ URL HTTPS của app để kiểm tra manifest và logo.
+4. Android: bấm Cài ứng dụng nếu nút hiện. Hoặc mở menu ⋮ của Chrome để cài.
+5. iPhone: bấm Mở ứng dụng, rồi Safari > Chia sẻ > Thêm vào màn hình chính > Thêm.
+Nếu biểu tượng cũ vẫn hiện, kiểm tra dữ liệu lưu trên máy trước khi gỡ rồi cài lại.
+Mỗi app dùng một URL thư mục riêng. Biểu tượng mở nội dung chính từ index.html.

@@ -1,6 +1,6 @@
 const scope = self.registration.scope;
 const cacheName = 'ideco-template-pwa:' + scope;
-const offlineUrl = new URL('ideco-pwa/offline.html', scope).href;
+const offlineUrl = new URL('ideco-offline.html', scope).href;
 self.addEventListener('install', event => {
   event.waitUntil((async () => {
     const cache = await caches.open(cacheName);
